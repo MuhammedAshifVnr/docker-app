@@ -37,6 +37,7 @@ func main() {
 	Admin := router.Group("/admin")
 	routes.AdminRouters(Admin)
 
+
 	router.Run(":8080")
 
 }
