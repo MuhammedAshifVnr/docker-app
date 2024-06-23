@@ -1,0 +1,871 @@
+basePath: /
+definitions:
+  database.AddressData:
+    properties:
+      city:
+        type: string
+      state:
+        type: string
+      street:
+        type: string
+      type:
+        type: string
+      zip:
+        type: integer
+    type: object
+  database.CategoryData:
+    properties:
+      catagory:
+        type: string
+      description:
+        type: string
+    type: object
+  database.Logging:
+    properties:
+      password:
+        type: string
+      useremail:
+        type: string
+    type: object
+  database.OfferProductData:
+    properties:
+      expirey:
+        type: string
+      percentage:
+        type: number
+    type: object
+  database.ReviewData:
+    properties:
+      rating:
+        type: number
+      review:
+        type: string
+    type: object
+  database.SignupData:
+    properties:
+      useremail:
+        type: string
+      username:
+        type: string
+      userpassword:
+        type: string
+    type: object
+  database.UserData:
+    properties:
+      gender:
+        type: string
+      mobile:
+        type: integer
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample Gin API with Swagger documentation.
+  title: ECOM
+  version: "1.0"
+paths:
+  /admin/category:
+    get:
+      description: Admin can see the listed  category in ecommerce website
+      produces:
+      - application/json
+      responses: {}
+      summary: get all category list by admin
+      tags:
+      - Admin-Category
+    post:
+      consumes:
+      - application/json
+      description: Add a new category with the provided details
+      operationId: add-category
+      parameters:
+      - description: Category Add
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/database.CategoryData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully added.
+          schema:
+            type: string
+        "404":
+          description: Duplicate found.
+          schema:
+            type: string
+      summary: Add a new category
+      tags:
+      - Admin-Category
+  /admin/category/{ID}:
+    delete:
+      description: Deletes a category by ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete a category
+      tags:
+      - Admin-Category
+    patch:
+      description: Admin can Block the listed  category in ecommerce website
+      parameters:
+      - description: User ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Admin can block the category
+      tags:
+      - Admin-Category
+    put:
+      description: Admin can edit the listed  category in ecommerce website
+      parameters:
+      - description: User ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      - description: Category Edit
+        in: body
+        name: Form
+        required: true
+        schema:
+          $ref: '#/definitions/database.CategoryData'
+      produces:
+      - application/json
+      responses: {}
+      summary: Admin can edit the category
+      tags:
+      - Admin-Category
+  /admin/coupon:
+    get:
+      description: Admin side list all the coupons
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Coupons
+          schema:
+            type: string
+      tags:
+      - Admin-Coupons
+    post:
+      consumes:
+      - multipart/form-data
+      description: Admin can add the coupon in ecommerce website
+      parameters:
+      - description: Coupon Code
+        in: formData
+        name: code
+        required: true
+        type: string
+      - description: Coupon Amount
+        in: formData
+        name: amount
+        required: true
+        type: string
+      - description: Limit Amount
+        in: formData
+        name: limit
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Coupon added
+          schema:
+            type: string
+      tags:
+      - Admin-Coupons
+  /admin/coupon/{ID}:
+    delete:
+      description: Admin side delete a coupon
+      parameters:
+      - description: Coupon ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Coupon deleted
+          schema:
+            type: string
+      summary: Admin can delete a coupon
+      tags:
+      - Admin-Coupons
+  /admin/home:
+    get:
+      description: after login show this page
+      produces:
+      - application/json
+      responses: {}
+      summary: Admin Home Page
+      tags:
+      - Admin
+  /admin/login:
+    post:
+      consumes:
+      - application/json
+      description: Login an admin user with username and password
+      operationId: admin-login
+      parameters:
+      - description: Admin login details
+        in: body
+        name: admin
+        required: true
+        schema:
+          $ref: '#/definitions/database.Logging'
+      produces:
+      - application/json
+      responses: {}
+      summary: Login an admin user
+      tags:
+      - Admin
+  /admin/logout:
+    get:
+      description: Logout an admin clearing the cookie
+      produces:
+      - application/json
+      responses: {}
+      summary: Logout an admin user
+      tags:
+      - Admin
+  /admin/offer:
+    get:
+      description: Product Offer Listing
+      produces:
+      - application/json
+      responses: {}
+      summary: Product Offer Listing
+      tags:
+      - Admin-Offer
+  /admin/offer/{ID}:
+    delete:
+      description: Product Offer Deleting
+      parameters:
+      - description: Product ID
+        in: path
+        name: ID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Product Offer Deleting
+      tags:
+      - Admin-Offer
+    post:
+      consumes:
+      - application/json
+      description: Product Offer Adding
+      parameters:
+      - description: Product ID
+        in: path
+        name: ID
+        required: true
+        type: integer
+      - description: Offer
+        in: body
+        name: offer
+        required: true
+        schema:
+          $ref: '#/definitions/database.OfferProductData'
+      produces:
+      - application/json
+      responses: {}
+      summary: Offer Adding
+      tags:
+      - Admin-Offer
+  /admin/order:
+    get:
+      description: All Orders  are listed here
+      produces:
+      - application/json
+      responses: {}
+      summary: Orders Listing
+      tags:
+      - Admin-Order
+  /admin/order/update/{ID}:
+    patch:
+      consumes:
+      - multipart/form-data
+      description: Update the status of an order by ID.
+      operationId: update-order
+      parameters:
+      - description: Order ID
+        in: path
+        name: ID
+        required: true
+        type: integer
+      - description: New status
+        in: formData
+        name: status
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Update Order Status
+      tags:
+      - Admin-Order
+  /admin/product:
+    get:
+      description: get all product list by admin
+      produces:
+      - application/json
+      responses: {}
+      summary: Admin can see the listed  products in ecommerce website
+      tags:
+      - Admin-Product
+    post:
+      consumes:
+      - multipart/form-data
+      description: Add a new product to the database
+      parameters:
+      - description: Name of the product
+        in: formData
+        name: product
+        required: true
+        type: string
+      - description: Name of the category the product belongs to
+        in: formData
+        name: category
+        required: true
+        type: string
+      - description: Quantity of the product
+        in: formData
+        name: quantity
+        required: true
+        type: integer
+      - description: Price of the product
+        in: formData
+        name: price
+        required: true
+        type: number
+      - description: Size of the product
+        in: formData
+        name: size
+        required: true
+        type: integer
+      - description: Description of the product
+        in: formData
+        name: description
+        required: true
+        type: string
+      - collectionFormat: csv
+        description: Images of the product (upload at least 3 images)
+        in: formData
+        items:
+          type: file
+        name: images
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product added successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Add a new product
+      tags:
+      - Admin-Product
+  /admin/product/{ID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a product by its ID
+      operationId: delete-product
+      parameters:
+      - description: Product ID
+        in: path
+        name: ID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete a product
+      tags:
+      - Admin-Product
+    put:
+      consumes:
+      - multipart/form-data
+      description: Edits a product by its ID, including updating its category, quantity,
+        price, size, description, and images
+      operationId: edit-product
+      parameters:
+      - description: Product ID
+        in: path
+        name: ID
+        required: true
+        type: integer
+      - description: Name of the product
+        in: formData
+        name: product
+        required: true
+        type: string
+      - description: Product category name
+        in: formData
+        name: category
+        required: true
+        type: string
+      - description: Product quantity
+        in: formData
+        name: quantity
+        required: true
+        type: string
+      - description: Product price
+        in: formData
+        name: price
+        required: true
+        type: string
+      - description: Product size
+        in: formData
+        name: size
+        required: true
+        type: string
+      - description: Product description
+        in: formData
+        name: description
+        required: true
+        type: string
+      - collectionFormat: csv
+        description: Product images
+        in: formData
+        items:
+          type: file
+        name: images
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses: {}
+      summary: Edit a product
+      tags:
+      - Admin-Product
+  /admin/salesreport:
+    get:
+      consumes:
+      - application/json
+      description: Admin can download Sales Reoprt
+      parameters:
+      - description: Filter
+        in: query
+        name: filter
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Download Sales Reoprt
+      tags:
+      - Admin
+  /admin/sort:
+    get:
+      description: Admin can find best product and category
+      parameters:
+      - description: sort
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Finding best product and category
+      tags:
+      - Admin
+  /admin/users:
+    get:
+      description: Admin can see the users in ecommerce website
+      produces:
+      - application/json
+      responses: {}
+      tags:
+      - Admin-Users
+  /admin/users/{ID}:
+    patch:
+      description: Admin can Block and Unblock the users in ecommerce website
+      parameters:
+      - description: User ID
+        in: path
+        name: ID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      tags:
+      - Admin-Users
+  /user/address:
+    get:
+      consumes:
+      - application/json
+      description: User can list Address
+      produces:
+      - application/json
+      responses: {}
+      summary: Address listing
+      tags:
+      - User-Address
+    post:
+      consumes:
+      - application/json
+      description: User can Add Address
+      parameters:
+      - description: Address
+        in: body
+        name: address
+        required: true
+        schema:
+          $ref: '#/definitions/database.AddressData'
+      produces:
+      - application/json
+      responses: {}
+      summary: Address Adding
+      tags:
+      - User-Address
+  /user/address/{ID}:
+    delete:
+      description: User can Delete Address
+      parameters:
+      - description: Address ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Address Delete
+      tags:
+      - User-Address
+    patch:
+      consumes:
+      - application/json
+      description: User can Edite Address
+      parameters:
+      - description: Address ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/database.AddressData'
+      produces:
+      - application/json
+      responses: {}
+      summary: Address Edit
+      tags:
+      - User-Address
+  /user/cart:
+    get:
+      description: User can get the cart
+      produces:
+      - application/json
+      responses: {}
+      summary: Get cart
+      tags:
+      - User-Cart
+  /user/cart/{ID}:
+    delete:
+      consumes:
+      - application/json
+      description: User can delete the product from cart
+      parameters:
+      - description: ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete in Cart
+      tags:
+      - User-Cart
+    patch:
+      consumes:
+      - multipart/form-Data
+      description: User can update the quantity of product in cart
+      parameters:
+      - description: ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      - description: Quantity
+        in: formData
+        name: quantity
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Update Quantity in Cart
+      tags:
+      - User-Cart
+    post:
+      description: User can add product in cart
+      parameters:
+      - description: Product ID
+        in: path
+        name: ID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Adding Product in cart
+      tags:
+      - User-Cart
+  /user/checkout:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Checkout Page
+      parameters:
+      - description: Payment Method
+        in: formData
+        name: payment
+        required: true
+        type: string
+      - description: Address
+        in: formData
+        name: address
+        required: true
+        type: string
+      - description: coupon
+        in: formData
+        name: coupon
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Checkout Page
+      tags:
+      - User-Cart
+  /user/home:
+    get:
+      description: Get All Products
+      produces:
+      - application/json
+      responses: {}
+      summary: Get All Products
+      tags:
+      - User-Product
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Login
+      parameters:
+      - description: Login
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/database.Logging'
+      produces:
+      - application/json
+      responses: {}
+      summary: Login
+      tags:
+      - User
+  /user/logout:
+    get:
+      description: Logout
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Logout
+      tags:
+      - User
+  /user/order:
+    get:
+      consumes:
+      - application/json
+      description: Order Listing
+      produces:
+      - application/json
+      responses: {}
+      summary: Order Listing
+      tags:
+      - User-Order
+  /user/order-item/{ID}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Order item listing
+      tags:
+      - User-Order
+  /user/order/{ID}:
+    patch:
+      consumes:
+      - application/json
+      description: Order Cancelation
+      parameters:
+      - description: Order ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Order Cancelation
+      tags:
+      - User-Order
+  /user/otp:
+    post:
+      consumes:
+      - multipart/form-data
+      description: OtpChecker
+      parameters:
+      - description: OTP
+        in: formData
+        name: OTP
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: OtpChecker
+      tags:
+      - User-Signup
+  /user/productDetail/{ID}:
+    get:
+      description: Product Detail
+      parameters:
+      - description: Product ID
+        in: path
+        name: ID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Product Detail
+      tags:
+      - User-Product
+  /user/profile:
+    get:
+      description: Get user profile
+      produces:
+      - application/json
+      responses: {}
+      summary: User Profile
+      tags:
+      - User-Profile
+    patch:
+      consumes:
+      - application/json
+      description: User can Edite Profile
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/database.UserData'
+      produces:
+      - application/json
+      responses: {}
+      summary: Edite Profile
+      tags:
+      - User-Profile
+  /user/reotp:
+    post:
+      consumes:
+      - application/json
+      description: Resend OTP
+      produces:
+      - application/json
+      responses: {}
+      summary: Resend OTP
+      tags:
+      - User-Signup
+  /user/review/{id}:
+    post:
+      consumes:
+      - application/json
+      description: User can write review
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Review
+        in: body
+        name: review
+        required: true
+        schema:
+          $ref: '#/definitions/database.ReviewData'
+      produces:
+      - application/json
+      responses: {}
+      summary: User can write review
+      tags:
+      - User-Review
+  /user/signup:
+    post:
+      consumes:
+      - application/json
+      description: Signup
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/database.SignupData'
+      produces:
+      - application/json
+      responses: {}
+      summary: Signup
+      tags:
+      - User-Signup
+swagger: "2.0"
