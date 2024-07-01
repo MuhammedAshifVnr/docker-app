@@ -20,7 +20,7 @@ func init() {
 // @title ECOM
 // @version 1.0
 // @description This is a sample Gin API with Swagger documentation.
-// @host localhost:8080
+// @host http://a8a62228f0ef7492182ffd1059529e48-899787874.eu-north-1.elb.amazonaws.com:8080
 // @BasePath /
 func main() {
 	router := gin.Default()
