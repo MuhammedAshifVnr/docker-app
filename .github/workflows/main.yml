@@ -48,7 +48,7 @@ jobs:
           version: v1.21.0
 
       - name: Update kubeconfig
-        run: aws eks update-kubeconfig --region us-west-2 --name <your-cluster-name>
+        run: aws eks update-kubeconfig --region eu-north-1 --name dev
 
       - name: Apply Kubernetes secrets
         run: kubectl apply -f k8s/app-secrets.yaml
