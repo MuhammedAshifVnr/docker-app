@@ -6,7 +6,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:8080",
+    "host": "a8a62228f0ef7492182ffd1059529e48-899787874.eu-north-1.elb.amazonaws.com:8080",
     "basePath": "/",
     "paths": {
         "/admin/category": {
